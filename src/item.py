@@ -9,7 +9,7 @@ class Item:
     # TODO: consider leaving item_query as "parent" to item
     parent_item_query = ""
 
-    def __init__(self, prod_id: str, parent_item_query: ItemQuery):
+    def __init__(self, prod_id: str, parent_item_query: ItemQuery = None):
         self.prod_id = prod_id
         self.parent_item_query = parent_item_query
 
