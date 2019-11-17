@@ -1,7 +1,7 @@
 from .constants import Ceneo
 
 
-class Item:
+class ItemQuery:
     name = ""
     quantity = 0
     min_price = 0
