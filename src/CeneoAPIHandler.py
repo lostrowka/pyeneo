@@ -1,9 +1,13 @@
 import requests
 import logging
 
+from src.item_query import ItemQuery
+
 
 class CeneoAPIHandler:
+    """ Class handling HTTP requests to Ceneo based on ItemQuery and Item """
 
+    # append log entries to a file in appropriate
     logging.basicConfig(filename='../logs/CeneoAPIHandler.log',
                         filemode='a',
                         format='%(asctime)s,%(msecs)d %(levelname)s %(message)s',
@@ -13,10 +17,12 @@ class CeneoAPIHandler:
     def __init__(self):
         self.log_GET = "sending GET to {URL}"
 
-    def send_search_request(self, itemQuery):
-        url = itemQuery.create_url()
+    def send_search_request(self, item_query: ItemQuery) -> requests.Response:
+        """ Serve HTTP GET request regarding desired item """
+        url = item_query.create_url()
         logging.log(logging.INFO, self.log_GET.format(URL = url))
         return requests.request('GET', url)
 
-    def send_product_request(self, item):
+    def send_product_request(self, item: ItemQuery) -> requests.Response:
+        """ Serve HTTP GET request regarding """
         pass

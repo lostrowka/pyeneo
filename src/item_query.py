@@ -19,6 +19,6 @@ class ItemQuery:
         self.max_price = max_price
         self.timestamp = timestamp
 
-    def create_url(self):
+    def create_url(self) -> str:
         """ Create URL for query with object params """
         return f"{Ceneo.URI};szukaj-{self.name};m{self.min_price};n{self.max_price};0112-0.htm"
