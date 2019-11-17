@@ -9,7 +9,7 @@ class CeneoAPIHandler:
     """ Class handling HTTP requests to Ceneo based on ItemQuery and Item """
 
     # append log entries to a file in appropriate
-    logging.basicConfig(filename='../logs/CeneoAPIHandler.log',
+    logging.basicConfig(filename='../logs/pyeneo.log',
                         filemode='a',
                         format='%(asctime)s,%(msecs)d %(levelname)s %(message)s',
                         datefmt='%H:%M:%S',
