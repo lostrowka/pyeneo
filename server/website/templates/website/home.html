@@ -1,0 +1,87 @@
+{% extends 'website/header.html' %}
+
+{% block content %}
+
+<script>
+function makeThemRequired(form_elements){
+    form_elements[1].required=true;
+    form_elements[3].required=true;
+    form_elements[5].required=true;
+    form_elements[7].required=true;
+}
+
+function makeFirstFormRequired(){
+    var form_elements = document.getElementById('form1').children;
+    makeThemRequired(form_elements);
+}
+
+function add_form2(){
+    document.getElementById('form2').style.display='block';
+    document.getElementById('add_form2_button').style.display='none';
+    var form_elements = document.getElementById('form2').children;
+    makeThemRequired(form_elements);
+}
+
+function add_form3(){
+    document.getElementById('form3').style.display='block';
+    document.getElementById('add_form3_button').style.display='none';
+    var form_elements = document.getElementById('form3').children;
+    makeThemRequired(form_elements);
+}
+
+function add_form4(){
+    document.getElementById('form4').style.display='block';
+    document.getElementById('add_form4_button').style.display='none';
+    var form_elements = document.getElementById('form4').children;
+    makeThemRequired(form_elements);
+}
+
+function add_form5(){
+    document.getElementById('form5').style.display='block';
+    document.getElementById('add_form5_button').style.display='none';
+    var form_elements = document.getElementById('form5').children;
+    makeThemRequired(form_elements);
+}
+</script>
+
+<form method="POST" >
+    <br>
+    {% csrf_token %}
+    <div id="form1">
+        {{ form_list.0 }}
+        <br>
+        <button id='add_form2_button' class="input100" onclick="add_form2()">Dodaj przedmiot</button>
+        <br><br><br>
+        <script>makeFirstFormRequired();</script>
+    </div>
+
+    <div id='form2' style='display:none'>
+        {{ form_list.1}}
+        <br>
+        <button id='add_form3_button' class="btn btn-outline-info" onclick="add_form3()">Dodaj przedmiot</button>
+        <br><br><br>
+    </div>
+
+    <div id='form3' style='display:none'>
+        {{ form_list.2 }}
+        <br>
+        <button id='add_form4_button' class="btn btn-outline-info" onclick="add_form4()">Dodaj przedmiot</button>
+        <br><br><br>
+    </div>
+
+    <div id="form4" style='display:none'>
+        {{ form_list.3 }}
+        <br>
+        <button id='add_form5_button' class="btn btn-outline-info" onclick="add_form5()">Dodaj przedmiot</button>
+        <br><br><br>
+    </div>
+    
+    <div id='form5' style='display:none'>
+        {{ form_list.4 }}
+        <br><br>
+    </div>
+
+    <button class="btn btn-outline-info" type="submit">Wyślij zapytanie</button>
+</form>
+
+{% endblock %}
