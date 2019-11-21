@@ -47,13 +47,22 @@ function add_form5(){
 <form method="POST" >
     <br>
     {% csrf_token %}
-    <div id="form1">
+    <span class="contact100-form-title">
+            Co chcesz kupić?
+        </span>
         {{ form_list.0 }}
         <br>
-        <button id='add_form2_button' class="input100" onclick="add_form2()">Dodaj przedmiot</button>
+        <div class="container-contact100-form-btn">
+            <button class="contact100-form-btn">
+                <span>
+                    <i class="fa fa-paper-plane-o m-r-6" aria-hidden="true" onclick="add_form2()"></i>
+                    Dodaj przedmiot
+
+                </span>
+            </button>
+        </div>
         <br><br><br>
         <script>makeFirstFormRequired();</script>
-    </div>
 
     <div id='form2' style='display:none'>
         {{ form_list.1}}
@@ -81,7 +90,15 @@ function add_form5(){
         <br><br>
     </div>
 
-    <button class="btn btn-outline-info" type="submit">Wyślij zapytanie</button>
+    <div class="container-contact100-form-btn">
+        <button class="contact100-form-btn">
+            <span>
+                <i class="fa fa-paper-plane-o m-r-6" aria-hidden="true"></i>
+                Wyślij zapytanie
+            </span>
+        </button>
+    </div>
+
 </form>
 
 {% endblock %}
