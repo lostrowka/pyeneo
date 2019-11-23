@@ -1,7 +1,7 @@
 from typing import List, Dict
 
-from src.item_query import ItemQuery
-from .constants import Ceneo
+from src.models.item_query import ItemQuery
+from src.constants import Ceneo
 
 
 class Item:

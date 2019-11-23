@@ -1,5 +1,5 @@
 from datetime import datetime
-from .constants import Ceneo
+from src.constants import Ceneo
 
 
 class ItemQuery:
