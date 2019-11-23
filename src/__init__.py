@@ -4,6 +4,6 @@ import logging
 # TODO: color logs, set debug logging level as CLI arg --debug
 logging.basicConfig(filename='../logs/pyeneo.log',
                     filemode='w',
-                    format='%(asctime)s,%(msecs)d | %(name)s | %(levelname)s %(message)s',
+                    format='%(asctime)s,%(msecs)3d | %(name)-20s | %(levelname)-7s %(message)s',
                     datefmt='%H:%M:%S',
                     level=logging.INFO)
