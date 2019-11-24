@@ -1,4 +1,4 @@
-from src.CeneoAPIHandler import CeneoAPIHandler
+from src.ceneo_api_handler import CeneoAPIHandler
 from src.models.item_query import ItemQuery
 from datetime import datetime
 
