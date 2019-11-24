@@ -28,5 +28,5 @@ class SearchResultsProcessor:
             go_to_dom: element.Tag = item_dom.select_one("a.go-to-product.btn")
             if go_to_dom:
                 self.log.info(f"Found item {go_to_dom['title']}")
-                return Item(go_to_dom['href'], self.query)
+                return Item(go_to_dom['href'][1:], self.query)
         raise DataProcessorException(f"No item with more than 1 seller found in search results.")
