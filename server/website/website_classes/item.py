@@ -5,7 +5,7 @@ from .website_exceptions import (InvalidItemException,
                                  ReputationNotInBoundariesException)
 
 
-class Item():
+class Item:
     """
     Class representing single Item wanted by user.
 
@@ -34,7 +34,8 @@ class Item():
     Methods
     -----------
     create_url()
-        Based on the Skapiec.pl RESTish API it creates url and sets the (TODO: figure out WHICH URL. Search? Product? Maybe the final offer (external shop)?) object parameter url to it.
+        Based on the ceneo RESTish API it creates url and sets the (TODO: figure out WHICH URL. Search? Product?
+        Maybe the final offer (external shop)?) object parameter url to it.
     set_and_get_timestamp()
         Sets the object's timestamp to string representation of datetime.now().
         It also returns that value.
@@ -43,7 +44,6 @@ class Item():
         It contains data validation and raises exceptions if something is wrong
         with the data.
     """
-
 
     name = ''
     quantity = 1
@@ -60,20 +60,16 @@ class Item():
         self.price_max = price_max
         self.min_reputation = min_reputation
 
-
     def __str__(self):
         # basically it is for debugging in development. That syntax works ONLY in Python 3.8
         return f'{self.name}, {self.quantity}, {self.price_min}, {self.price_max}, {self.min_reputation}'
 
-
     def create_url(self):
         pass
-
 
     def set_and_get_timestamp(self):
         self.timestamp = str(datetime.now())
         return self.timestamp
-
 
     @classmethod
     def validate_item(cls, item_name, quantity, min_price, max_price, min_reputation):
