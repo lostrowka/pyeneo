@@ -1,0 +1,2 @@
+class DataProcessorException(Exception):
+    pass

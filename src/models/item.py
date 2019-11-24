@@ -1,7 +1,8 @@
-from typing import List, Dict
+from typing import List
 
-from src.item_query import ItemQuery
-from .constants import Ceneo
+from src.constants import Ceneo
+from src.models.item_query import ItemQuery
+from src.models.offer import Offer
 
 
 class Item:
@@ -10,7 +11,7 @@ class Item:
     prod_id: str = ""
     # TODO: consider leaving item_query as "parent" to item
     parent_item_query: ItemQuery = None
-    prices: List[Dict] = []
+    prices: List[Offer] = []
 
     def __init__(self, prod_id: str, parent_item_query: ItemQuery = None):
         self.prod_id = prod_id
