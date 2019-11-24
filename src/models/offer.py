@@ -8,3 +8,6 @@ class Offer:
         self.url = url
         self.rating = rating
         self.opinions = opinions
+
+    def __str__(self):
+        return f"{self.name} - {self.price} zł"

@@ -40,14 +40,16 @@ class ProductOffersProcessor:
             self.log.debug(f"Error while processing {name} record: {e}")
             return None
 
-    def get_offers_list(self) -> List[Offer]:
+    def get_offers_list(self, min_rep: int = 4, min_opinions: int = 20, res_len: int = 5) -> List[Offer]:
         """ Get List of Offer objects for given product """
         seller_list_items = self.get_seller_list_items_dom()
         offers_list = []
         for list_item in seller_list_items:
             offer = self.parse_seller_list_item_dom(list_item)
-            if offer:
+            if offer and offer.rating >= min_rep and offer.opinions >= min_opinions:
                 offers_list.append(offer)
+            if len(offers_list) == res_len:
+                break
         return offers_list
 
     @staticmethod

@@ -20,4 +20,6 @@ print(item.create_url())
 item_html = api_handler.send_product_request(item).text
 product_processor = ProductOffersProcessor(item_html, item)
 
-product_processor.get_offers_list()
+offers_list = product_processor.get_offers_list()
+for offer in offers_list:
+    print(offer)
