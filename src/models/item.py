@@ -1,3 +1,4 @@
+from functools import reduce
 from typing import List
 
 from src.constants import Ceneo
@@ -11,7 +12,7 @@ class Item:
     prod_id: str = ""
     # TODO: consider leaving item_query as "parent" to item
     parent_item_query: ItemQuery = None
-    prices: List[Offer] = []
+    offers: List[Offer] = []
 
     def __init__(self, prod_id: str, parent_item_query: ItemQuery = None):
         self.prod_id = prod_id
@@ -23,4 +24,11 @@ class Item:
 
     def add_seller(self, name: str, price: float):
         """ Method to append seller with their price to prices """
-        self.prices.append({"name": name, "price": price})
+        self.offers.append(Offer(name, price))
+
+    def get_mean_price(self) -> float:
+        return reduce(lambda value, acc: value+acc, map(lambda offer: offer.price, self.offers)) / len(self.offers)
+
+    def set_offers(self, offers: List[Offer]):
+        # TODO: consider raising an exception when this list is empty -- just for security?
+        self.offers = offers

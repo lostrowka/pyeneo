@@ -40,6 +40,7 @@ class ProductOffersProcessor:
             self.log.debug(f"Error while processing {name} record: {e}")
             return None
 
+    # TODO: consider refactoring this method to just provide offers to item
     def get_offers_list(self, min_rep: int = 4, min_opinions: int = 20, res_len: int = 5) -> List[Offer]:
         """ Get List of Offer objects for given product """
         seller_list_items = self.get_seller_list_items_dom()
@@ -50,6 +51,7 @@ class ProductOffersProcessor:
                 offers_list.append(offer)
             if len(offers_list) == res_len:
                 break
+        self.item.set_offers(offers_list)
         return offers_list
 
     @staticmethod
