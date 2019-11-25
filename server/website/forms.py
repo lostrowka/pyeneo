@@ -3,7 +3,7 @@ from django import forms
 
 # Class representing form which user needs to fill. It consists just of the fields
 class ItemForm(forms.Form):
-    item_name = forms.CharField(label='', max_length=240, required=False,
+    item_name = forms.CharField(label='', max_length=240, required=True,
                                 widget=forms.TextInput(attrs={
                                     'class': 'input100',
                                     'placeholder': 'Nazwa przedmiotu',
@@ -11,7 +11,7 @@ class ItemForm(forms.Form):
                                     ' name': 'name'},
                                 ))
 
-    quantity = forms.IntegerField(label='', min_value=1, max_value=99, required=False,
+    quantity = forms.IntegerField(label='', min_value=1, max_value=99, required=True,
                                   widget=forms.TextInput(attrs={
                                       'class': 'input100',
                                       'placeholder': 'Ilosc',
@@ -19,14 +19,14 @@ class ItemForm(forms.Form):
                                       'name': 'name'},
                                   ))
 
-    min_price = forms.IntegerField(label='', required=False, widget=forms.TextInput(attrs={
+    min_price = forms.IntegerField(label='', required=True, widget=forms.TextInput(attrs={
         'class': 'input100',
         'placeholder': 'Cena minimalna',
         'type': 'text',
         ' name': 'name'},
     ))
 
-    max_price = forms.IntegerField(label='', min_value=1, required=False,
+    max_price = forms.IntegerField(label='', min_value=1, required=True,
                                    widget=forms.TextInput(attrs={
                                        'class': 'input100',
                                        'placeholder': 'Cena maksymalna',
@@ -34,7 +34,7 @@ class ItemForm(forms.Form):
                                        ' name': 'name'},
                                    ))
 
-    min_reputation = forms.IntegerField(label='', required=False,
+    min_reputation = forms.IntegerField(label='', required=True,
                                         widget=forms.TextInput(attrs={
                                             'class': 'input100',
                                             'placeholder': 'Minimalna reputacja sprzedawcy',

@@ -47,18 +47,14 @@ function add_form5(){
 <form method="POST" >
     <br>
     {% csrf_token %}
-    <span class="contact100-form-title">
-            Co chcesz kupić?
-        </span>
+    <span class="contact100-form-title"> Co chcesz kupić? </span>
         {{ form_list.0 }}
         <br>
         <div class="container-contact100-form-btn">
             <button class="contact100-form-btn">
                 <span>
                     <i class="fa fa-paper-plane-o m-r-6" aria-hidden="true" onclick="add_form2()"></i>
-                    Dodaj przedmiot
-
-                </span>
+                    Dodaj przedmiot </span>
             </button>
         </div>
         <br><br><br>
