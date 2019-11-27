@@ -170,6 +170,17 @@ iframe {
   padding-bottom: 49px;
 }
 
+.contact100-form-subtitle {
+  display: block;
+  font-family: Ubuntu-Bold;
+  font-size: 20px;
+  color: #403866;
+  line-height: 1.2;
+  /*text-transform: uppercase;*/
+  text-align: center;
+  padding-bottom: 20px;
+}
+
 /*------------------------------------------------------------------
 [ Input ]*/
 
@@ -278,6 +289,13 @@ textarea.input100 {
   z-index: 1;
 }
 
+.contact100-form-btn:disabled {
+  -webkit-transition: none !important;
+  -o-transition: none !important;
+  -moz-transition: none !important;
+  transition: none !important;
+}
+
 .contact100-form-btn::before {
   content: "";
   display: block;
@@ -302,7 +320,11 @@ textarea.input100 {
   transition: all 0.4s;
 }
 
-.contact100-form-btn:hover:before {
+.contact100-form-btn:disabled::before {
+  background-color: #929292;
+}
+
+.contact100-form-btn:enabled:hover:before {
   background-color: #403866;
   width: calc(100% + 20px);
 }

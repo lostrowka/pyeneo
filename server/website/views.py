@@ -1,6 +1,11 @@
+from datetime import datetime
+from typing import List
+
+from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import redirect, render
 from .forms import ItemForm
 from .website_classes.item import Item
+from src.models.item import ItemQuery
 from .website_classes.website_exceptions import (
     InvalidItemException, MinGreaterThanMaxException,
     ReputationNotInBoundariesException)
@@ -10,7 +15,7 @@ def redirect_to_request(request):
     return redirect('/make_a_request')
 
 
-def request_page(request):
+def request_page(request: WSGIRequest):
     if request.method == "POST":
         item_name_list = request.POST.getlist('item_name')
         quantity_list = request.POST.getlist('quantity')
@@ -20,7 +25,7 @@ def request_page(request):
 
         items = []
 
-        for i in range(5):
+        for i in range(len(item_name_list)):
             try:
                 item = Item.validate_item(item_name_list[i],
                                           quantity_list[i],
@@ -53,17 +58,23 @@ def request_page(request):
                               context={'form_list': form_list, 'messages': messages})
 
         if len(items) > 0:
-            task = process_data(items)
-            task_id = task.id
-            return render(request=request,
-                          template_name='website/loading.html',
-                          context={'task_id': task_id})
+            process_data(items)
+            # task_id = task.id
+            # return render(request=request,
+            #               template_name='website/loading.html',
+            #               context={'task_id': task_id})
 
     form_list = [ItemForm(), ItemForm(), ItemForm(), ItemForm(), ItemForm()]
     return render(request=request,
                   template_name='website/home.html',
                   context={'form_list': form_list})
 
+
+def process_data(items: List[Item]):
+    for item in items:
+        item_query = ItemQuery(item.name, item.quantity, item.price_min, item.price_max, datetime.now())
+        # TODO: Finish. For now srint URL only.
+        print(item_query.create_url())
 #
 # def loading_page(request, task_id):
 #     return render(request=request,
