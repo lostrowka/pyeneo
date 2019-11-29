@@ -8,22 +8,16 @@ document.body.onload = function() {
 
     let next_no = 1;
 
-    function makeThemRequired(form_elements) {
-        form_elements[1].disabled=false;
-        form_elements[2].disabled=false;
-        form_elements[3].disabled=false;
-        form_elements[4].disabled=false;
-        form_elements[5].disabled=false;
-        form_elements[1].required=true;
-        form_elements[2].required=true;
-        form_elements[3].required=true;
-        form_elements[4].required=true;
-        form_elements[5].required=true;
+    function makeRequired(form_elements) {
+        Array.from(form_elements).slice(1, 5).forEach(function (input_dom){
+            input_dom.required = true;
+            input_dom.disabled = false;
+        });
     }
 
     document.getElementById("add_next").onclick = function make_next_visible(e) {
         document.getElementById('form' + next_no).style.display = 'block';
-        makeThemRequired(document.getElementById('form' + next_no).children);
+        makeRequired(document.getElementById('form' + next_no).children);
         if (next_no === 5)
             e.currentTarget.disabled = true;
         else
