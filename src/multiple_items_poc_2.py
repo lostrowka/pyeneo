@@ -1,6 +1,6 @@
-from src.models.deal import Deal
-from src.models.item import Item
-from src.models.offer import Offer
+from server.website.models.deal import Deal
+from server.website.models.item import Item
+from server.website.models.offer import Offer
 
 sample_offers = []
 for i in range(1, 20):

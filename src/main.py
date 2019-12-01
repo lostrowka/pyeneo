@@ -1,11 +1,11 @@
-from src.ceneo_api_handler import CeneoAPIHandler
-from src.models.item_query import ItemQuery
+from server.website.ceneo_api_handler import CeneoAPIHandler
+from server.website.models.item_query import ItemQuery
 from datetime import datetime
 
-from src.processors.product_offers_processor import ProductOffersProcessor
-from src.processors.search_results_processor import SearchResultsProcessor
+from server.website.processors.search_results_processor import SearchResultsProcessor
+from server.website.processors.product_offers_processor import ProductOffersProcessor
 
-item_query = ItemQuery("pralka wsad 7 kg", 1, 1000, 1600, datetime.now())
+item_query = ItemQuery("pralka wsad 7 kg", 1, 1000, 1600)
 
 print(item_query.create_url())
 

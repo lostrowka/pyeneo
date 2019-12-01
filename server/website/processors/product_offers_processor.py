@@ -4,9 +4,9 @@ from typing import List, Optional
 
 from bs4 import BeautifulSoup, element
 
-from src.models.item import Item
-from src.models.offer import Offer
-from src.processors import DataProcessorException
+from server.website.models.item import Item
+from server.website.models.offer import Offer
+from server.website.processors import DataProcessorException
 
 
 class ProductOffersProcessor:

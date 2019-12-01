@@ -1,12 +1,12 @@
-from src.ceneo_api_handler import CeneoAPIHandler
-from src.models.item_query import ItemQuery
+from server.website.ceneo_api_handler import CeneoAPIHandler
+from server.website.models.item_query import ItemQuery
 from datetime import datetime
 
-from src.processors.multiple_items_processor import MultipleItemsProcessor
-from src.processors.product_offers_processor import ProductOffersProcessor
-from src.processors.search_results_processor import SearchResultsProcessor
+from server.website.processors.multiple_items_processor import MultipleItemsProcessor
+from server.website.processors.product_offers_processor import ProductOffersProcessor
+from server.website.processors.search_results_processor import SearchResultsProcessor
 
-item_query = ItemQuery("anysharp ostrzałka", 1, 50, 250, datetime.now())
+item_query = ItemQuery("anysharp ostrzałka", 1, 50, 250)
 
 print(item_query.create_url())
 
@@ -26,7 +26,7 @@ item.offers = product_processor.get_offers_list(res_len=10)
 #     print(offer)
 
 # second_item_query = item_query
-second_item_query = ItemQuery("bodum brazil zaparzacz", 1, 50, 140, datetime.now())
+second_item_query = ItemQuery("bodum brazil zaparzacz", 1, 50, 140)
 
 print(second_item_query.create_url())
 
