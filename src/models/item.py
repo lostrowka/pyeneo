@@ -10,7 +10,7 @@ class Item:
     """ Class reflecting a specific item"""
 
     prod_id: str = ""
-    # TODO: consider leaving item_query as "parent" to item
+    # TODO: must provide item_query as "parent" to item -- get name
     parent_item_query: ItemQuery = None
     offers: List[Offer] = []
     mean_price: float = None

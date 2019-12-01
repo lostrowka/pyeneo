@@ -10,11 +10,20 @@ class Deal:
     name: str
     items_to_offers: List[Dict]
     empty: bool
+    single_item_template: str = "{ITEM} for {PRICE} in {SELLER}\n"
 
     def __init__(self):
         # self.name = name
         self.items_to_offers = []
         self.empty = True
+
+    def __str__(self) -> str:
+        result = ''
+        for d in self.items_to_offers:
+            result += self.single_item_template.format(ITEM=d['item'].prod_id,
+                                                       PRICE=d['offer'].price,
+                                                       SELLER=d['offer'].name)
+        return result
 
     def append(self, item: Item, offer: Offer):
         self.empty = False

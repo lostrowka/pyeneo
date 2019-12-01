@@ -1,3 +1,4 @@
+import logging
 from typing import List, Dict, Set
 
 from src.models.deal import Deal
@@ -5,21 +6,30 @@ from src.models.item import Item
 
 class MultipleItemsProcessor:
 
-    @staticmethod
-    def find_best_combination(items: List[Item]) -> List[Deal]:
-        unique_sellers = MultipleItemsProcessor.__extract_unique_sellers(items)
-        sellers_mapped_prices = MultipleItemsProcessor.__map_prices(unique_sellers, items)
-        seller_full_match = MultipleItemsProcessor.__check_full_match(sellers_mapped_prices, items)
+    items: List[Item] = None
+    item_names: str
+
+    def __init__(self, items: List[Item]):
+        self.items = items
+        self.log = logging.getLogger(MultipleItemsProcessor.__name__)
+        self.item_names = ''.join(item.prod_id+', ' for item in self.items)
+
+    def find_best_combination(self) -> List[Deal]:
+        unique_sellers = MultipleItemsProcessor.__extract_unique_sellers(self.items)
+        sellers_mapped_prices = MultipleItemsProcessor.__map_prices(unique_sellers, self.items)
+        seller_full_match = MultipleItemsProcessor.__check_full_match(sellers_mapped_prices, self.items)
 
         deals = []
         best_effort_deal = Deal()
-        for item in items:
-            best_effort_deal.append(item, item.get_best_offer())
 
+        for item in self.items:
+            best_effort_deal.append(item, item.get_best_offer())
+        self.log.info(f"assembled best effort deal for items {self.item_names}")
         deals.append(best_effort_deal)
 
-        for dict in seller_full_match:
+        for index, dict in enumerate(seller_full_match):
             tmp_deal = Deal()
+            self.log.info(f"assembled deal number {index+1} for items {self.item_names}")
             tmp_deal.append_dict(dict)
             deals.append(tmp_deal)
 
