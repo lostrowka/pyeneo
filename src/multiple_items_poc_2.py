@@ -1,7 +1,6 @@
-from src.models.deal import Deal
-from src.models.item import Item
-from src.models.offer import Offer
-from src.processors.multiple_items_processor import MultipleItemsProcessor
+from server.website.models.deal import Deal
+from server.website.models.item import Item
+from server.website.models.offer import Offer
 
 sample_offers = []
 for i in range(1, 20):
@@ -20,4 +19,3 @@ items = [item1, item2, item3]
 deal = Deal()
 for i in items:
     deal.append(i, i.get_best_offer())
-print(deal)

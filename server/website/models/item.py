@@ -1,9 +1,9 @@
 from functools import reduce
 from typing import List
 
-from src.constants import Ceneo
-from src.models.item_query import ItemQuery
-from src.models.offer import Offer
+from server.website.constants import Ceneo
+from server.website.models.item_query import ItemQuery
+from server.website.models.offer import Offer
 
 
 class Item:

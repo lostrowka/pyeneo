@@ -1,8 +1,8 @@
 import logging
 from typing import List, Dict, Set
 
-from src.models.deal import Deal
-from src.models.item import Item
+from server.website.models.deal import Deal
+from server.website.models.item import Item
 
 class MultipleItemsProcessor:
 

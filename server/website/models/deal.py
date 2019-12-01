@@ -1,7 +1,7 @@
 from typing import List, Dict
 
-from src.models.item import Item
-from src.models.offer import Offer
+from server.website.models.item import Item
+from server.website.models.offer import Offer
 
 
 class Deal:

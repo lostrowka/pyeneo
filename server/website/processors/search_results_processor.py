@@ -3,9 +3,9 @@ from typing import List
 
 from bs4 import BeautifulSoup, element
 
-from src.models.item import Item
-from src.models.item_query import ItemQuery
-from src.processors import DataProcessorException
+from server.website.models.item import Item
+from server.website.models.item_query import ItemQuery
+from server.website.processors import DataProcessorException
 
 
 class SearchResultsProcessor:

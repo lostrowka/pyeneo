@@ -1,8 +1,8 @@
 import requests
 import logging
 
-from src.models.item import Item
-from src.models.item_query import ItemQuery
+from server.website.models.item import Item
+from server.website.models.item_query import ItemQuery
 
 
 class CeneoAPIHandler:

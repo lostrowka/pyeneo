@@ -1,14 +1,13 @@
-from datetime import datetime
 from typing import List
 
 from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import redirect, render
-from .forms import ItemForm
-from .website_classes.item import Item
-from src.models.item import ItemQuery
-from .website_classes.website_exceptions import (
+
+from server.website.models.exceptions import (
     InvalidItemException, MinGreaterThanMaxException,
     ReputationNotInBoundariesException)
+from server.website.models.item import ItemQuery
+from .forms import ItemForm
 
 
 def redirect_to_request(request):
@@ -23,19 +22,18 @@ def request_page(request: WSGIRequest):
         max_price_list = request.POST.getlist('max_price')
         min_reputation_list = request.POST.getlist('min_reputation')
 
-        items = []
+        queries = []
 
         for i in range(len(item_name_list)):
             try:
-                item = Item.validate_item(item_name_list[i],
-                                          quantity_list[i],
-                                          min_price_list[i],
-                                          max_price_list[i],
-                                          min_reputation_list[i])
-                item.create_url()
-                items.append(item)
+                item_query = ItemQuery.validate_query(item_name_list[i],
+                                                      quantity_list[i],
+                                                      min_price_list[i],
+                                                      max_price_list[i],
+                                                      min_reputation_list[i])
+                queries.append(item_query)
             except InvalidItemException:
-                if len(items) > 0:
+                if len(queries) > 0:
                     break
                 else:
                     form_list = [ItemForm(), ItemForm(), ItemForm(), ItemForm(), ItemForm()]
@@ -57,8 +55,8 @@ def request_page(request: WSGIRequest):
                               template_name='website/home.html',
                               context={'form_list': form_list, 'messages': messages})
 
-        if len(items) > 0:
-            process_data(items)
+        if len(queries) > 0:
+            process_data(queries)
             # task_id = task.id
             # return render(request=request,
             #               template_name='website/loading.html',
@@ -70,10 +68,9 @@ def request_page(request: WSGIRequest):
                   context={'form_list': form_list})
 
 
-def process_data(items: List[Item]):
-    for item in items:
-        item_query = ItemQuery(item.name, item.quantity, item.price_min, item.price_max, datetime.now())
-        # TODO: Finish. For now srint URL only.
+def process_data(queries: List[ItemQuery]):
+    for item_query in queries:
+        # TODO: Finish. For now print URL only.
         print(item_query.create_url())
 #
 # def loading_page(request, task_id):
