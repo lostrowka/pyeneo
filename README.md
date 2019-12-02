@@ -52,6 +52,13 @@ find sellers with all desired items later on.
 Item has two Offer related mwethods, one returning best Offer chosen by lowest price. The other is used to get a 
 desired Offer by its name.
 
-
 ## data flow
+
+## data processing
+
+### SearchResultsProcessor
+
+### ProductOffersProcessor
+
+### MultipleItemsProcessor
 
