@@ -4,6 +4,7 @@ from typing import List, Dict, Set
 from server.website.models.deal import Deal
 from server.website.models.item import Item
 
+
 class MultipleItemsProcessor:
 
     items: List[Item] = None

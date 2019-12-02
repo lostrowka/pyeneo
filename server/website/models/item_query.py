@@ -9,11 +9,11 @@ from server.website.models.exceptions import InvalidItemException, MinGreaterTha
 class ItemQuery:
     """ Class reflecting query for items with given name and given price range """
 
-    name = ""
-    quantity = 0
-    min_price = 0
-    max_price = 0
-    timestamp = None
+    name: str = ""
+    quantity: float = 0
+    min_price: float = 0
+    max_price: float = 0
+    timestamp: str = None
 
     def __init__(self, name: str, quantity: int, min_price: float, max_price: float, min_reputation: float = 4):
         """ Create new ItemQuery """
