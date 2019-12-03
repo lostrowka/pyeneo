@@ -43,4 +43,4 @@ second_product_processor = ProductOffersProcessor(second_item_html, second_item)
 second_offers_list = second_product_processor.get_offers_list(res_len=10)
 
 items = [item, second_item]
-l = MultipleItemsProcessor(items).find_best_combination()
+l = MultipleItemsProcessor(items).get_deals()
