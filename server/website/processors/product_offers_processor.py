@@ -71,7 +71,7 @@ class ProductOffersProcessor:
 
     @staticmethod
     def get_rating(tag: element.Tag) -> float:
-        """ Get rating (no of start) for given seller """
+        """ Get rating (no of stars) for given seller """
         rating_dom = tag.find("span", class_="score-marker")
         return float(re.search(r"width: (\d+.?\d?)%;", rating_dom["style"]).group(1))/20
 
@@ -79,4 +79,4 @@ class ProductOffersProcessor:
     def get_no_of_opinions(tag: element.Tag) -> int:
         """ Get number of opinions for given seller """
         no_str = tag.find("span", class_="dotted-link").text
-        return int(re.search(r"^(\d+) opini[ie]$", no_str).group(1))
+        return int(re.search(r"^(\d+) opini[iea]$", no_str).group(1))
