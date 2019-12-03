@@ -5,11 +5,11 @@ from server.website.models.item import Item
 
 class Seller:
     name: str
-    goods: List[Dict]
+    stock: List[Dict]
 
     def __init__(self, name: str, items: List[Item] = None):
         self.name = name
-        self.goods = []
+        self.stock = []
         if items is not None:
             self.add_many(items)
 
@@ -19,7 +19,7 @@ class Seller:
             'offer': item.get_offer_by_name(self.name),
             'price': item.get_price_by_seller(self.name),
         }
-        self.goods.append(entry)
+        self.stock.append(entry)
 
     def add_many(self, items: List[Item]):
         for item in items:
