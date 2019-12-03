@@ -1,8 +1,22 @@
 {% extends 'website/header.html' %}
 
 {% block content %}
-    {% for record in data %}
-        <p>{{ data }}</p>
-        <br>
+    {% for deal in deals %}
+        <div id="form{{ forloop.counter }}">
+            <span class="contact100-form-subtitle">Zestawienie {{ forloop.counter }}</span>
+            {% for item in deal.items_to_offers %}
+                    <div class="row">
+                        {% for key, value in item.items %}
+                            <div class="col-md-6">{{ value }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <div class="col-md-9">Cena całkowita:</div>
+                    <div class="col-md-3 text-right">{{ deal.calculate_price }}</div>
+                </div>
+            </table>
+            <br>
+        </div>
     {% endfor %}
 {% endblock content %}

@@ -1,17 +1,17 @@
 from typing import List
 
 from django.core.handlers.wsgi import WSGIRequest
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 
 from server.website.models.exceptions import (
     InvalidItemException, MinGreaterThanMaxException,
     ReputationNotInBoundariesException)
 from server.website.models.item import ItemQuery
+from .ceneo_api_handler import CeneoAPIHandler
 from .forms import ItemForm
-
-
-def redirect_to_request(request):
-    return redirect('/make_a_request')
+from .processors.multiple_items_processor import MultipleItemsProcessor
+from .processors.product_offers_processor import ProductOffersProcessor
+from .processors.search_results_processor import SearchResultsProcessor
 
 
 def request_page(request: WSGIRequest):
@@ -56,11 +56,10 @@ def request_page(request: WSGIRequest):
                               context={'form_list': form_list, 'messages': messages})
 
         if len(queries) > 0:
-            process_data(queries)
-            # task_id = task.id
-            # return render(request=request,
-            #               template_name='website/loading.html',
-            #               context={'task_id': task_id})
+            deals = process_data(queries)
+            return render(request=request,
+                          template_name='website/output.html',
+                          context={'deals': deals})
 
     form_list = [ItemForm(), ItemForm(), ItemForm(), ItemForm(), ItemForm()]
     return render(request=request,
@@ -69,44 +68,18 @@ def request_page(request: WSGIRequest):
 
 
 def process_data(queries: List[ItemQuery]):
+    api_handler = CeneoAPIHandler()
+    items = []
     for item_query in queries:
-        # TODO: Finish. For now print URL only.
-        print(item_query.create_url())
-#
-# def loading_page(request, task_id):
-#     return render(request=request,
-#                   template_name='website/loading.html',
-#                   context={'task_id': task_id})
-#
-#
-# def output_page(request, task_id):
-#     task = current_app.AsyncResult(task_id)
-#
-#     if task.status == "SUCCESS":
-#         data = task.get()
-#
-#     return render(request=request,
-#                   template_name='website/output.html',
-#                   context={'data': data})
-#
-#
-# def check_output(request, task_id):
-#     """
-#     Method that will return either HTTP 200 or HTTP 204 depending on the Celery Task status. If the Task will not be
-#     finished it returns 204 (JavaScript on the frontend will stay on the loading page). If the Task will be finished,
-#     i.e.: results are ready, then JavaScript will change window.location.href to the output page, where the results
-#     will
-#     be returned
-#     """
-#     task = current_app.AsyncResult(task_id)
-#     response = HttpResponse()
-#
-#     if task.status == "SUCCESS":
-#         response.status_code = 200
-#     elif task.status == "FAILURE":
-#         response.status_code = 400  # or some different code
-#     else:
-#         response.status_code = 204
-#
-#     response.status_code = 204
-#     return response
+        item_query_html = api_handler.send_search_request(item_query).text
+        search_processor = SearchResultsProcessor(item_query_html, item_query)
+
+        item = search_processor.get_first_item_with_multiple_sellers()
+        item_html = api_handler.send_product_request(item).text
+
+        product_processor = ProductOffersProcessor(item_html, item)
+        item.offers = product_processor.get_offers_list(res_len=10)
+        items.append(item)
+
+    multiple_items_processor = MultipleItemsProcessor(items)
+    return multiple_items_processor.get_deals()
