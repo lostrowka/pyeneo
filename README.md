@@ -14,14 +14,16 @@ class at AGH University of Science and Technology by:
 
 ## Running the application
 ```bash
-git clone arepo URL
+git clone repo URL
 cd pyeneo
-??? 
+PYTHONPATH=. python3 server/manage.py runserver
 ```
+This should print a URL pointing to ```http://127.0.0.1:8000``` by default. Clicking it will redirect you to the 
+application site.
 
-# implementation details
+# Implementation Details
 
-## data structures
+## Data Structures
 
 ### Offer
 Offer is a class containing single offer for a specific product. Fields are self-explanatory.
@@ -46,15 +48,24 @@ Class reflecting a specific item as returned in Ceneo search results. Fields:
 * offers: List[Offer] = []
 * mean_price: float = None
 
-### Deal
-Deal is a structure bind Item to a suggested Offer.
-
 Item has method create_url similar to one implemented in ItemQuery.
 get_price_by_seller returns either price for given seller or -1 if there is no such seller. This feature is used to 
 find sellers with all desired items later on.
 
 Item has two Offer related methods, one returning best Offer chosen by lowest price.
-The other is used to get a desired Offer by its name, it returns None if no such Offer was found. 
+The other is used to get a desired Offer by its name, it returns None if no such Offer was found.
+
+### Seller
+It's an intermediate data structure used to facilitate multiple items processing. It consists of following fields.
+* name: str -- seller name
+* stock: List[Dict] -- List of Dictionaries with following keys:
+    * 'item' -- Item object
+    * 'offer' -- Offer given Seller has for this Item. None if there's no such offer.
+    * 'price'
+Deals are created based on this data.
+
+### Deal
+Deal is a structure bind Item to a suggested Offer.
 
 ## Data Flow
 
@@ -83,11 +94,11 @@ It has several self-explanatory helper methods to get values such as prices, rat
 MultipleItemsProcessor operates on a List of Items (each with at least one Offer) to find either the best Deal or at
  least the "best effort" one. "Best effort" meaning each Item is paired with its best Offer.
  
-Algorithm:
-1. extract List of sellers from List of Items
-2. map each seller to Item and according price
-3. create a "best effort" deal -- lowest Offer from every Item
-4. find best seller with most items
-5. sort obtained Deals by total price
-6. return this List of Deals
+Procedure:
+1. Extract a Set of seller names from List of Items.
+2. Create a List of Seller objects, each with according stock. 
+3. Iterate over Sellers and assemble a Deal for each.
+    If a given Seller has an Item -> append it to the Deal. If not, then append the Offer with the lowest price.
+4. Sort obtained Deals by total price.
+5. Return sorted Deals.
 
