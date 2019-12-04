@@ -57,7 +57,9 @@ Item has two Offer related methods, one returning best Offer chosen by lowest pr
 The other is used to get a desired Offer by its name, it returns None if no such Offer was found. 
 
 ## Data Flow
-TBD
+
+![Data flow chart](https://github.com/lostrowka/pyeneo/blob/master/images/data_flow.png)
+
 
 ## Data Processing
 
