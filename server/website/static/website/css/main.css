@@ -146,7 +146,7 @@ iframe {
 }
 
 .wrap-contact100 {
-  width: 550px;
+  width: 700px;
   background: transparent;
   padding: 50px 0px;
 }
@@ -186,7 +186,7 @@ iframe {
 [ Input ]*/
 
 .wrap-input100 {
-  width: 100%;
+  width: 550px;
   background-color: #fff;
   border-radius: 31px;
   margin-bottom: 16px;
@@ -197,13 +197,14 @@ iframe {
 .input100 {
   position: relative;
   display: block;
-  width: 100%;
+  width: 550px;
   background: #fff;
   border-radius: 31px;
   font-family: Ubuntu-Bold;
   font-size: 18px;
   color: #8f8fa1;
   line-height: 1.2;
+  margin: 0 auto;
 }
 
 

@@ -57,7 +57,7 @@ class ProductOffersProcessor:
     @staticmethod
     def get_price(tag: element.Tag) -> float:
         """ Get price offered by given seller """
-        if tag.find("span", class_="free-delivery-txt"):
+        if tag.find("span", class_=["free-delivery-txt", "free-shipping-day"]):
             value = int(tag.find("span", class_="value").text)
             penny = float(re.search(r",(\d{2})", tag.find("span", class_="penny").text).group(1))/100
         else:
