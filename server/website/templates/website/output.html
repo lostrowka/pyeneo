@@ -4,11 +4,15 @@
     {% for deal in deals %}
         <div id="form{{ forloop.counter }}">
             <span class="contact100-form-subtitle">Zestawienie {{ forloop.counter }}</span>
-            {% for item in deal.items_to_offers %}
+                {% for item, offer in deal.items_to_offers %}
                     <div class="row">
-                        {% for key, value in item.items %}
-                            <div class="col-md-6">{{ value }}</div>
-                        {% endfor %}
+                        <div class="col-md-7">{{ item.prod_name }}</div>
+                        <div class="col-md-3 text-right">{{ offer.name }}</div>
+                        <div class="col-md-2 text-right">
+                            <a href="https://www.ceneo.pl/{{ constants.Ceneo.URI }}{{ offer.url }}">
+                                LINK
+                            </a>
+                        </div>
                     </div>
                 {% endfor %}
                 <div class="row">

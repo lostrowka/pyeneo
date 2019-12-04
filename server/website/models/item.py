@@ -10,17 +10,19 @@ class Item:
     """ Class reflecting a specific item"""
 
     prod_id: str = ""
+    prod_name: str = ""
     # TODO: must provide item_query as "parent" to item -- get name
     parent_item_query: ItemQuery = None
     offers: List[Offer] = []
     mean_price: float = None
 
-    def __init__(self, prod_id: str, parent_item_query: ItemQuery = None):
+    def __init__(self, prod_id: str, prod_name: str, parent_item_query: ItemQuery = None):
         self.prod_id = prod_id
+        self.prod_name = prod_name
         self.parent_item_query = parent_item_query
 
     def __str__(self):
-        return f"{self.prod_id}"
+        return f"{self.prod_name}"
 
     def create_url(self) -> str:
         """ Create URL for and item with specific ID sorted by lowest price (delivery included) """
