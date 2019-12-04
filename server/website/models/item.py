@@ -1,5 +1,5 @@
 from functools import reduce
-from typing import List
+from typing import List, Optional
 
 from server.website.constants import Ceneo
 from server.website.models.item_query import ItemQuery
@@ -31,7 +31,7 @@ class Item:
         self.offers.append(Offer(name, price))
 
     def get_price_by_seller(self, name: str) -> float:
-        """ Method returning price at given seller or -1 if there is no such seller in Offers list"""
+        """ Method returning price at given seller or -1 if there is no such seller in Offers list """
         return next((offer.price for offer in self.offers if offer.name == name), -1)
 
     def set_offers(self, offers: List[Offer]):
@@ -43,5 +43,5 @@ class Item:
     def get_best_offer(self) -> Offer:
         return sorted(self.offers, key=lambda p: p.price)[0]
 
-    def get_offer_by_name(self, name: str) -> Offer:
+    def get_offer_by_name(self, name: str) -> Optional[Offer]:
         return next((offer for offer in self.offers if offer.name == name), None)

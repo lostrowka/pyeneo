@@ -36,4 +36,3 @@ class MultipleItemsProcessor:
             else:
                 deal.append(entry['item'], entry['item'].get_best_offer())
         return deal
-
