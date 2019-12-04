@@ -10,7 +10,7 @@ class at AGH University of Science and Technology by:
 ## Prerequisites
 * Python 3
 * Beautiful Soup
-* Django //version?
+* Django 3.0
 
 ## Running the application
 ```bash
