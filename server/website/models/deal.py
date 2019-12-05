@@ -30,4 +30,5 @@ class Deal:
 
     def calculate_price(self) -> float:
         """returns dynamically calculated price"""
-        return sum(d[1].price for d in self.items_to_offers)
+        price = sum(d[1].price for d in self.items_to_offers)
+        return round(price, 2)
