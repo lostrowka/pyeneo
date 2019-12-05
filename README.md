@@ -8,7 +8,7 @@ class at AGH University of Science and Technology by:
 * Maciej Jankowski.
 
 ## How to start?
-   1. With CLI (Tested on Ubuntu 18.04)
+   1. With CLI 
          
          sudo su <br/>
          apt-get update && apt-get upgrade -y  <br/>
@@ -24,6 +24,8 @@ class at AGH University of Science and Technology by:
          python -m pip -r requirements.txt<br/>
          export PYTHONPATH=$(pwd)<br/>
          python server/website manage.py runserver<br/>
+         
+         (included in bash file start.sh)
          
    2. With IntelliJ IDEA
       
