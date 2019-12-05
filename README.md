@@ -17,7 +17,7 @@ class at AGH University of Science and Technology by:
          mkdir io<br/>
          cd io<br/>
          git clone https://github.com/lostrowka/pyeneo.git<br/>
-         python3.7 -m pip install venv<br/>
+         apt-get install python3-venv<br/>
          python3.7 -m venv my_env<br/>
          source my_env/bin/activate<br/>
          cd pyeneo<br/>
