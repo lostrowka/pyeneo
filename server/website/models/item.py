@@ -13,7 +13,6 @@ class Item:
     prod_name: str = ""
     parent_item_query: ItemQuery = None
     offers: List[Offer] = []
-    mean_price: float = None
 
     def __init__(self, prod_id: str, prod_name: str, parent_item_query: ItemQuery = None):
         self.prod_id = prod_id
@@ -36,10 +35,7 @@ class Item:
         return next((offer.price for offer in self.offers if offer.name == name), -1)
 
     def set_offers(self, offers: List[Offer]):
-        # TODO: consider raising an exception when this list is empty -- just for security?
         self.offers = offers
-        self.mean_price = reduce(lambda value, acc: value + acc,
-                                 map(lambda offer: offer.price, self.offers)) / len(self.offers)
 
     def get_best_offer(self) -> Offer:
         return sorted(self.offers, key=lambda p: p.price)[0]
