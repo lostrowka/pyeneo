@@ -10,20 +10,21 @@ class at AGH University of Science and Technology by:
 ## Running the application
    1. With CLI 
          
-         sudo su <br/>
-         apt-get update && apt-get upgrade -y  <br/>
-         apt-get install python3.7 -y<br/>
-         apt-get install git-all -y<br/>
-         mkdir io<br/>
-         cd io<br/>
-         git clone https://github.com/lostrowka/pyeneo.git<br/>
-         apt-get install python3-venv<br/>
-         python3.7 -m venv my_env<br/>
-         source my_env/bin/activate<br/>
-         cd pyeneo<br/>
-         python -m pip -r requirements.txt<br/>
-         export PYTHONPATH=$(pwd)<br/>
-         python server/website manage.py runserver<br/>
+         ```sudo su <br/>
+         apt-get update && apt-get upgrade -y  
+         apt-get install python3.7 -y
+         apt-get install git-all -y
+         mkdir io
+         cd io
+         git clone https://github.com/lostrowka/pyeneo.git
+         apt-get install python3-venv
+         python3.7 -m venv my_env
+         source my_env/bin/activate
+         cd pyeneo
+         python -m pip -r requirements.txt
+         export PYTHONPATH=$(pwd)
+         python server/website manage.py runserver
+         ```
          
          (included in bash file start.sh)
          
