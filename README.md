@@ -7,7 +7,7 @@ class at AGH University of Science and Technology by:
 * Maciej Kania,
 * Maciej Jankowski.
 
-## How to start?
+## Running the application
    1. With CLI 
          
          sudo su <br/>
@@ -30,6 +30,8 @@ class at AGH University of Science and Technology by:
    2. With IntelliJ IDEA
       
       ![IDEA config](https://github.com/lostrowka/pyeneo/blob/master/images/idea_config.png)
+      
+This should print a URL pointing to http://127.0.0.1:8000 by default. Clicking it will redirect you to the application site.
          
 
 ## Prerequisites
