@@ -36,18 +36,8 @@ This should print a URL pointing to http://127.0.0.1:8000 by default. Clicking i
          
 
 ## Prerequisites
-* Python 3
-* Beautiful Soup
-* Django 3.0
-
-## Running the application
-```bash
-git clone repo URL
-cd pyeneo
-PYTHONPATH=. python3 server/manage.py runserver
-```
-This should print a URL pointing to ```http://127.0.0.1:8000``` by default. Clicking it will redirect you to the 
-application site.
+   See requirements.txt
+   
 
 # Implementation Details
 
