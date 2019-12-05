@@ -42,14 +42,14 @@ def request_page(request: WSGIRequest):
                                   context={'form_list': form_list})
 
             except MinGreaterThanMaxException:
-                messages = ['BŁĄD: Cena minimalna jest większa od maksymalnej']
+                messages = ['Cena minimalna jest większa od maksymalnej']
                 form_list = [ItemForm(), ItemForm(), ItemForm(), ItemForm(), ItemForm()]
                 return render(request=request,
                               template_name='website/home.html',
                               context={'form_list': form_list, 'messages': messages})
 
             except ReputationNotInBoundariesException:
-                messages = ['BŁĄD: Reputacja musi zawierać się w przedziale <1, 5>']
+                messages = ['Reputacja musi zawierać się w przedziale od 1 do 5']
                 form_list = [ItemForm(), ItemForm(), ItemForm(), ItemForm(), ItemForm()]
                 return render(request=request,
                               template_name='website/home.html',

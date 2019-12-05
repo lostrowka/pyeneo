@@ -22,10 +22,19 @@ document.body.onload = function() {
             e.currentTarget.disabled = true;
         else
             next_no += 1;
-   };
+    };
 
-   // Init by adding first product
-   document.getElementById("add_next").click();
+    // Init by adding first product
+    document.getElementById("add_next").click();
+
+    {% for message in messages %}
+        Swal.fire({
+            title: 'Błąd!',
+            text: '{{ message}}',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        });
+    {% endfor %}
 }
 </script>
 
