@@ -14,14 +14,14 @@ class ItemForm(forms.Form):
     quantity = forms.IntegerField(label='', min_value=1, max_value=99, disabled=True,
                                   widget=forms.TextInput(attrs={
                                       'class': 'input100 my-2',
-                                      'placeholder': 'Ilosc',
+                                      'placeholder': 'Ilość/Liczba',
                                       'type': 'text',
                                       'name': 'name'},
                                   ))
 
     min_price = forms.IntegerField(label='', disabled=True, widget=forms.TextInput(attrs={
         'class': 'input100 my-2',
-        'placeholder': 'Cena minimalna',
+        'placeholder': 'Cena minimalna [zł]',
         'type': 'text',
         'name': 'name'},
     ))
@@ -29,7 +29,7 @@ class ItemForm(forms.Form):
     max_price = forms.IntegerField(label='', min_value=1, disabled=True,
                                    widget=forms.TextInput(attrs={
                                        'class': 'input100 my-2',
-                                       'placeholder': 'Cena maksymalna',
+                                       'placeholder': 'Cena maksymalna [zł]',
                                        'type': 'text',
                                        'name': 'name'},
                                    ))
@@ -37,7 +37,7 @@ class ItemForm(forms.Form):
     min_reputation = forms.IntegerField(label='', disabled=True,
                                         widget=forms.TextInput(attrs={
                                             'class': 'input100 my-2',
-                                            'placeholder': 'Minimalna reputacja sprzedawcy 1 - 5',
+                                            'placeholder': 'Minimalna reputacja sprzedawcy [1 - 5]',
                                             'type': 'text',
                                             'name': 'name'},
                                         ))
