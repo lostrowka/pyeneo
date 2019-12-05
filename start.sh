@@ -1,5 +1,4 @@
 #!/bin/bash
-sudo su
 apt-get update && apt-get upgrade -y
 apt-get install python3.7 -y
 apt-get install git-all -y
