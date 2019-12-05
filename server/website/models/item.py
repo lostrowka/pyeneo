@@ -7,11 +7,10 @@ from server.website.models.offer import Offer
 
 
 class Item:
-    """ Class reflecting a specific item"""
+    """ Class reflecting a specific item """
 
     prod_id: str = ""
     prod_name: str = ""
-    # TODO: must provide item_query as "parent" to item -- get name
     parent_item_query: ItemQuery = None
     offers: List[Offer] = []
     mean_price: float = None

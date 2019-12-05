@@ -37,7 +37,7 @@ class ItemForm(forms.Form):
     min_reputation = forms.IntegerField(label='', disabled=True,
                                         widget=forms.TextInput(attrs={
                                             'class': 'input100 my-2',
-                                            'placeholder': 'Minimalna reputacja sprzedawcy',
+                                            'placeholder': 'Minimalna reputacja sprzedawcy 1 - 5',
                                             'type': 'text',
                                             'name': 'name'},
                                         ))

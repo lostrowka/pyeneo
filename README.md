@@ -126,7 +126,7 @@ Procedure:
 1. Extract a Set of seller names from List of Items.
 2. Create a List of Seller objects, each with according stock. 
 3. Iterate over Sellers and assemble a Deal for each.
-    If a given Seller has an Item -> append it to the Deal. If not, then append the Offer with the lowest price.
+    If a given Seller has an Item, append it to the Deal. If not, then append the Offer with the lowest price.
 4. Sort obtained Deals by total price.
 5. Return sorted Deals.
 
