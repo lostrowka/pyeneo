@@ -7,6 +7,29 @@ class at AGH University of Science and Technology by:
 * Maciej Kania,
 * Maciej Jankowski.
 
+## How to start?
+   1. With CLI (Tested on Ubuntu 18.04)
+         
+         sudo su
+         apt-get update && apt-get upgrade -y
+         apt-get install python3.7 -y
+         apt-get install git-all -y
+         mkdir io
+         cd io
+         git clone https://github.com/lostrowka/pyeneo.git
+         python3.7 -m pip install venv
+         python3.7 -m venv my_env
+         source my_env/bin/activate
+         cd pyeneo
+         python -m pip -r requirements.txt
+         export PYTHONPATH=$(pwd)
+         python server/website manage.py runserver
+         
+   2. With IntelliJ IDEA
+      
+      ![IDEA config](https://github.com/lostrowka/pyeneo/blob/master/images/idea_config.png)
+         
+
 ## Prerequisites
 * Python 3
 * Beautiful Soup
