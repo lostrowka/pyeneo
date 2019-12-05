@@ -19,20 +19,10 @@ class MultipleItemsProcessor:
     def get_deals(self) -> List[Deal]:
         sellers = [Seller(name, self.items) for name in self.get_unique_seller_names()]
 
-        deals = [self.assemble_a_deal(seller) for seller in sellers]
+        deals = [Deal.assemble_a_deal(seller) for seller in sellers]
         self.log.info(f"assembled {len(deals)} deals for items {self.item_names}")
 
         return sorted(set(deals), key=lambda d: d.calculate_price())[0:3]
 
     def get_unique_seller_names(self) -> Set[str]:
         return set(offer.name for offer in sum(map(lambda item: item.offers, self.items), []))
-
-    @staticmethod
-    def assemble_a_deal(seller: Seller) -> Deal:
-        deal = Deal()
-        for entry in seller.stock:
-            if entry['offer'] is not None:
-                deal.append(entry['item'], entry['offer'])
-            else:
-                deal.append(entry['item'], entry['item'].get_best_offer())
-        return deal

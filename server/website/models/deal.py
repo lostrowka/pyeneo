@@ -2,6 +2,7 @@ from typing import List, Dict, Tuple
 
 from server.website.models.item import Item
 from server.website.models.offer import Offer
+from server.website.models.seller import Seller
 
 
 class Deal:
@@ -32,3 +33,13 @@ class Deal:
         """returns dynamically calculated price"""
         price = sum(d[1].price for d in self.items_to_offers)
         return round(price, 2)
+
+    @classmethod
+    def assemble_a_deal(cls, seller: Seller):
+        deal = Deal()
+        for entry in seller.stock:
+            if entry['offer'] is not None:
+                deal.append(entry['item'], entry['offer'])
+            else:
+                deal.append(entry['item'], entry['item'].get_best_offer())
+        return deal
