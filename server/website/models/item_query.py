@@ -1,9 +1,10 @@
 import logging
 from datetime import datetime
 
+
 from server.website.constants import Ceneo
 from server.website.models.exceptions import InvalidItemException, MinGreaterThanMaxException, \
-    ReputationNotInBoundariesException
+    ReputationNotInBoundariesException, InvalidDataTypeException
 
 
 class ItemQuery:
@@ -34,19 +35,20 @@ class ItemQuery:
     def validate_query(cls, item_name: str, quantity: str, min_price: str, max_price: str, min_reputation: str):
         """ Server-side validation for product input from user """
 
-        if item_name == '' or quantity == '' or min_price == '' or max_price == '':
+        if item_name == '' or quantity == '' or min_price == '' or max_price == '' or min_reputation == '':
             raise InvalidItemException()
 
-        min_price = float(min_price.replace(",", "."))
-        max_price = float(max_price.replace(",", "."))
+        try:
+            quantity = int(quantity)
+            min_price = float(min_price.replace(",", "."))
+            max_price = float(max_price.replace(",", "."))
+        except ValueError:
+            raise InvalidDataTypeException
 
         if min_price > max_price:
             raise MinGreaterThanMaxException()
 
         quantity = int(quantity)
-
-        if min_reputation == '':
-            return cls(item_name, quantity, min_price, max_price)
 
         if float(min_reputation) > 5 or float(min_reputation) < 0:
             raise ReputationNotInBoundariesException()

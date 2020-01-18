@@ -5,13 +5,15 @@ from django.shortcuts import render
 
 from server.website.models.exceptions import (
     InvalidItemException, MinGreaterThanMaxException,
-    ReputationNotInBoundariesException)
+    ReputationNotInBoundariesException, InvalidDataTypeException, NoResultsException)
 from server.website.models.item import ItemQuery
 from .ceneo_api_handler import CeneoAPIHandler
 from .forms import ItemForm
 from .processors.multiple_items_processor import MultipleItemsProcessor
 from .processors.product_offers_processor import ProductOffersProcessor
 from .processors.search_results_processor import SearchResultsProcessor
+from sys import maxsize
+import re
 
 
 def request_page(request: WSGIRequest):
@@ -25,6 +27,19 @@ def request_page(request: WSGIRequest):
         queries = []
 
         for i in range(len(item_name_list)):
+
+            pattern = re.compile("^\s*$")
+
+            """ Setting default values """
+            if pattern.match(quantity_list[i]):
+                quantity_list[i] = 1
+            if min_price_list[i] == '':
+                min_price_list[i] = str(1)
+            if max_price_list[i] == '':
+                max_price_list[i] = str(maxsize)
+            if min_reputation_list[i] == '':
+                min_reputation_list[i] = 3
+
             try:
                 item_query = ItemQuery.validate_query(item_name_list[i],
                                                       quantity_list[i],
@@ -41,6 +56,13 @@ def request_page(request: WSGIRequest):
                                   template_name='website/home.html',
                                   context={'form_list': form_list})
 
+            except InvalidDataTypeException:
+                message = ['Wprowadź poprawne typy danych!']
+                form_list = [ItemForm(), ItemForm(), ItemForm(), ItemForm(), ItemForm()]
+                return render(request=request,
+                              template_name='website/home.html',
+                              context={'form_list': form_list, 'messages': message})
+
             except MinGreaterThanMaxException:
                 messages = ['Cena minimalna jest większa od maksymalnej']
                 form_list = [ItemForm(), ItemForm(), ItemForm(), ItemForm(), ItemForm()]
@@ -56,7 +78,20 @@ def request_page(request: WSGIRequest):
                               context={'form_list': form_list, 'messages': messages})
 
         if len(queries) > 0:
-            deals = process_data(queries)
+            # To jest shit
+            # try:
+            #     deals = process_data(queries)
+            # except NoResultsException:
+            #     messages_no_results = [' ']
+            #     form_list = [ItemForm(), ItemForm(), ItemForm(), ItemForm(), ItemForm()]
+            #     return render(request=request,
+            #                   template_name='website/home.html',
+            #                   context={'form_list': form_list, 'messages_no_results': messages_no_results})
+
+            # TODO: tu sie sra
+
+            deals = sort_by_price(process_data(queries))
+
             return render(request=request,
                           template_name='website/output.html',
                           context={'deals': deals})
@@ -83,3 +118,23 @@ def process_data(queries: List[ItemQuery]):
 
     multiple_items_processor = MultipleItemsProcessor(items)
     return multiple_items_processor.get_deals()
+
+
+def sort_by_price(deals: List):
+    """ Sort by price """
+
+    price_list = []
+    deals_sorted = []
+
+    for deal in deals:
+        price_list.append(deal.calculate_price())
+    price_list.sort()
+
+    for deal in deals:
+        if deal.calculate_price() == price_list[0]:
+            price_list.pop(0)
+            deals_sorted.append(deal)
+
+    deals = deals_sorted
+
+    return deals

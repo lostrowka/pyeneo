@@ -6,7 +6,7 @@ class ItemForm(forms.Form):
     item_name = forms.CharField(label='', max_length=240, disabled=True,
                                 widget=forms.TextInput(attrs={
                                     'class': 'input100 my-2',
-                                    'placeholder': 'Nazwa przedmiotu',
+                                    'placeholder': 'Nazwa przedmiotu *',
                                     'type': 'text',
                                     'name': 'name'},
                                 ))

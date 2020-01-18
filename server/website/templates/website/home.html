@@ -9,8 +9,12 @@ document.body.onload = function() {
     let next_no = 1;
 
     function makeRequired(form_elements) {
-        Array.from(form_elements).slice(1, 6).forEach(function (input_dom){
+        Array.from(form_elements).slice(1, 2).forEach(function (input_dom){
             input_dom.required = true;
+            input_dom.disabled = false;
+        });
+        Array.from(form_elements).slice(2, 6).forEach(function (input_dom){
+            input_dom.required = false;
             input_dom.disabled = false;
         });
     }
@@ -35,6 +39,14 @@ document.body.onload = function() {
             confirmButtonText: 'Ok'
         });
     {% endfor %}
+
+    {% for message in messages_no_results %}
+    Swal.fire({
+        title: 'Brak zestawień!',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+    });
+    {% endfor %}
 }
 </script>
 
@@ -48,6 +60,9 @@ document.body.onload = function() {
             <br>
         </div>
     {% endfor %}
+
+    <span style="color: #bdbdd3; text-align: center; display: block"> * Pole obowiązkowe </span><br>
+
     <div class="container-contact100-form-btn">
         <button type="button" id="add_next" class="contact100-form-btn">
             <span>

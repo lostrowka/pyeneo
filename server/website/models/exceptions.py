@@ -11,3 +11,13 @@ class MinGreaterThanMaxException(Exception):
 class ReputationNotInBoundariesException(Exception):
     """ Raised if reputation provided is > 5 or < 1 """
     pass
+
+
+class InvalidDataTypeException(Exception):
+    """ Raised if data is invalid """
+    pass
+
+
+class NoResultsException(Exception):
+    """ Raised if there is no results"""
+    pass
