@@ -21,7 +21,7 @@ class at AGH University of Science and Technology by:
          python3.7 -m venv my_env
          source my_env/bin/activate
          cd pyeneo
-         python -m pip -r requirements.txt
+         python -m pip install -r requirements.txt
          export PYTHONPATH=$(pwd)
          python server/website manage.py runserver
          ```
