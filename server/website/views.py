@@ -122,19 +122,4 @@ def process_data(queries: List[ItemQuery]):
 
 def sort_by_price(deals: List):
     """ Sort by price """
-
-    price_list = []
-    deals_sorted = []
-
-    for deal in deals:
-        price_list.append(deal.calculate_price())
-    price_list.sort()
-
-    for deal in deals:
-        if deal.calculate_price() == price_list[0]:
-            price_list.pop(0)
-            deals_sorted.append(deal)
-
-    deals = deals_sorted
-
-    return deals
+    return sorted(deals, key=lambda d: d.calculate_price())[0:3]
