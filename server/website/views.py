@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 from server.website.models.exceptions import (
     InvalidItemException, MinGreaterThanMaxException,
-    ReputationNotInBoundariesException)
+    ReputationNotInBoundariesException, InvalidDataTypeException)
 from server.website.models.item import ItemQuery
 from .ceneo_api_handler import CeneoAPIHandler
 from .forms import ItemForm
@@ -39,7 +39,6 @@ def request_page(request: WSGIRequest):
                 max_price_list[i] = str(maxsize)
             if pattern.match(min_reputation_list[i]):
                 min_reputation_list[i] = float(1)
-
 
             try:
                 item_query = ItemQuery.validate_query(item_name_list[i],
@@ -79,7 +78,6 @@ def request_page(request: WSGIRequest):
                               context={'form_list': form_list, 'messages': messages})
 
         if len(queries) > 0:
-
             deals = sort_by_price(process_data(queries))
 
             return render(request=request,

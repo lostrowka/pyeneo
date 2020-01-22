@@ -29,6 +29,7 @@ class Deal:
         self.empty = False
         self.items_to_offers.append((item, offer,))
 
+    # TODO: price should be multiplied by quantity
     def calculate_price(self) -> str:
         """returns dynamically calculated price"""
         price = sum(d[1].price for d in self.items_to_offers)
