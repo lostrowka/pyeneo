@@ -48,9 +48,7 @@ class ItemQuery:
         if min_price > max_price:
             raise MinGreaterThanMaxException()
 
-        quantity = int(quantity)
-
-        if float(min_reputation) > 5 or float(min_reputation) < 0:
+        if float(min_reputation) > 5 or float(min_reputation) < 1:
             raise ReputationNotInBoundariesException()
 
         return cls(item_name, quantity, min_price, max_price, float(min_reputation))

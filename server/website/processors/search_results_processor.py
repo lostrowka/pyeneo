@@ -23,7 +23,6 @@ class SearchResultsProcessor:
         if self.get_search_results_dom() is not None:
             return self.get_search_results_dom().find_all("div", class_="js_category-list-item")
 
-
     def get_first_item_with_multiple_sellers(self) -> Item:
         """ Get first item with more than one seller """
         for item_dom in self.get_item_results_list():

@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 from server.website.models.exceptions import (
     InvalidItemException, MinGreaterThanMaxException,
-    ReputationNotInBoundariesException, InvalidDataTypeException, NoResultsException)
+    ReputationNotInBoundariesException)
 from server.website.models.item import ItemQuery
 from .ceneo_api_handler import CeneoAPIHandler
 from .forms import ItemForm
@@ -33,12 +33,13 @@ def request_page(request: WSGIRequest):
             """ Setting default values """
             if pattern.match(quantity_list[i]):
                 quantity_list[i] = 1
-            if min_price_list[i] == '':
+            if pattern.match(min_price_list[i]):
                 min_price_list[i] = str(1)
-            if max_price_list[i] == '':
+            if pattern.match(max_price_list[i]):
                 max_price_list[i] = str(maxsize)
-            if min_reputation_list[i] == '':
-                min_reputation_list[i] = 3
+            if pattern.match(min_reputation_list[i]):
+                min_reputation_list[i] = float(1)
+
 
             try:
                 item_query = ItemQuery.validate_query(item_name_list[i],
@@ -78,17 +79,6 @@ def request_page(request: WSGIRequest):
                               context={'form_list': form_list, 'messages': messages})
 
         if len(queries) > 0:
-            # To jest shit
-            # try:
-            #     deals = process_data(queries)
-            # except NoResultsException:
-            #     messages_no_results = [' ']
-            #     form_list = [ItemForm(), ItemForm(), ItemForm(), ItemForm(), ItemForm()]
-            #     return render(request=request,
-            #                   template_name='website/home.html',
-            #                   context={'form_list': form_list, 'messages_no_results': messages_no_results})
-
-            # TODO: tu sie sra
 
             deals = sort_by_price(process_data(queries))
 
@@ -117,9 +107,10 @@ def process_data(queries: List[ItemQuery]):
         items.append(item)
 
     multiple_items_processor = MultipleItemsProcessor(items)
+    print(multiple_items_processor)
     return multiple_items_processor.get_deals()
 
 
 def sort_by_price(deals: List):
     """ Sort by price """
-    return sorted(deals, key=lambda d: d.calculate_price())[0:3]
+    return sorted(deals, key=lambda d: d.calculate_price())[1:4]

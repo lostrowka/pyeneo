@@ -23,12 +23,16 @@ class ProductOffersProcessor:
 
     def get_seller_list_items_dom(self) -> List[element.Tag]:
         """ Get list of sellers for given product """
+
         return self.get_seller_table().find_all("tr", class_="product-offer")
 
     def parse_seller_list_item_dom(self, list_item_dom: element.Tag) -> Optional[Offer]:
         """ Parse list item DOM to Offer object """
+
         name = list_item_dom["data-shopurl"]
+
         self.log.debug(f"Processing seller {name}")
+
         try:
             price = self.get_price(list_item_dom)
             url = list_item_dom.find("a", class_="go-to-shop")["href"][1:]
@@ -36,6 +40,7 @@ class ProductOffersProcessor:
             opinions = self.get_no_of_opinions(list_item_dom)
 
             return Offer(name, price, url, rating, opinions)
+
         except DataProcessorException as e:
             self.log.debug(f"Error while processing {name} record: {e}")
             return None
@@ -59,12 +64,12 @@ class ProductOffersProcessor:
         """ Get price offered by given seller """
         if tag.find("span", class_=["free-delivery-txt", "free-shipping-day"]):
             value = int(tag.find("span", class_="value").text)
-            penny = float(re.search(r",(\d{2})", tag.find("span", class_="penny").text).group(1))/100
+            penny = float(re.search(r",(\d{2})", tag.find("span", class_="penny").text).group(1)) / 100
         else:
             delivery_regex = re.search(r"(\d+),(\d{2})", tag.find("div", class_="product-delivery-info").text)
             if delivery_regex:
                 value = int(delivery_regex.group(1))
-                penny = float(delivery_regex.group(2))/100
+                penny = float(delivery_regex.group(2)) / 100
             else:
                 raise DataProcessorException("Did not find price with delivery included")
         return value + penny
@@ -73,7 +78,7 @@ class ProductOffersProcessor:
     def get_rating(tag: element.Tag) -> float:
         """ Get rating (no of stars) for given seller """
         rating_dom = tag.find("span", class_="score-marker")
-        return float(re.search(r"width: (\d+.?\d?)%;", rating_dom["style"]).group(1))/20
+        return float(re.search(r"width: (\d+.?\d?)%;", rating_dom["style"]).group(1)) / 20
 
     @staticmethod
     def get_no_of_opinions(tag: element.Tag) -> int:

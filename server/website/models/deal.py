@@ -29,10 +29,10 @@ class Deal:
         self.empty = False
         self.items_to_offers.append((item, offer,))
 
-    def calculate_price(self) -> float:
+    def calculate_price(self) -> str:
         """returns dynamically calculated price"""
         price = sum(d[1].price for d in self.items_to_offers)
-        return round(price, 2)
+        return "{:.2f}".format(price) + ' zł'
 
     @classmethod
     def assemble_a_deal(cls, seller: Seller):
