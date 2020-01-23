@@ -46,11 +46,6 @@ def request_page(request: WSGIRequest):
                                                       max_price_list[i],
                                                       min_reputation_list[i])
                 queries.append(item_query)
-                print(item_name_list[i])
-                print(quantity_list[i])
-                print(min_price_list[i])
-                print(max_price_list[i])
-                print(min_reputation_list[i])
             except InvalidItemException:
                 if len(queries) > 0:
                     break
@@ -82,7 +77,6 @@ def request_page(request: WSGIRequest):
                               context={'form_list': form_list, 'messages': messages})
 
         if len(queries) > 0:
-            print(process_data(queries))
             deals = sort_by_price(process_data(queries))
 
             return render(request=request,

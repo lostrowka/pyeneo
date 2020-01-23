@@ -17,11 +17,9 @@ class SearchResultsProcessor:
         self.query = query
 
     def get_search_results_dom(self) -> element.Tag:
-        print(self.html_soup)
         return self.html_soup.find("div", class_="js_search-results")
 
     def get_item_results_list(self) -> List[element.Tag]:
-        print(self.get_search_results_dom())
         return self.get_search_results_dom().find_all("div", class_="js_category-list-item")
 
     def get_first_item_with_multiple_sellers(self) -> Item:
