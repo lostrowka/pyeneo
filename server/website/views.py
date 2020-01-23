@@ -1,3 +1,4 @@
+import re
 from typing import List
 
 from django.core.handlers.wsgi import WSGIRequest
@@ -12,8 +13,6 @@ from .forms import ItemForm
 from .processors.multiple_items_processor import MultipleItemsProcessor
 from .processors.product_offers_processor import ProductOffersProcessor
 from .processors.search_results_processor import SearchResultsProcessor
-from sys import maxsize
-import re
 
 
 def request_page(request: WSGIRequest):
@@ -36,7 +35,7 @@ def request_page(request: WSGIRequest):
             if pattern.match(min_price_list[i]):
                 min_price_list[i] = str(1)
             if pattern.match(max_price_list[i]):
-                max_price_list[i] = str(maxsize)
+                max_price_list[i] = str(10**8)
             if pattern.match(min_reputation_list[i]):
                 min_reputation_list[i] = float(1)
 
@@ -47,6 +46,11 @@ def request_page(request: WSGIRequest):
                                                       max_price_list[i],
                                                       min_reputation_list[i])
                 queries.append(item_query)
+                print(item_name_list[i])
+                print(quantity_list[i])
+                print(min_price_list[i])
+                print(max_price_list[i])
+                print(min_reputation_list[i])
             except InvalidItemException:
                 if len(queries) > 0:
                     break
@@ -78,6 +82,7 @@ def request_page(request: WSGIRequest):
                               context={'form_list': form_list, 'messages': messages})
 
         if len(queries) > 0:
+            print(process_data(queries))
             deals = sort_by_price(process_data(queries))
 
             return render(request=request,
@@ -105,10 +110,9 @@ def process_data(queries: List[ItemQuery]):
         items.append(item)
 
     multiple_items_processor = MultipleItemsProcessor(items)
-    print(multiple_items_processor)
     return multiple_items_processor.get_deals()
 
 
 def sort_by_price(deals: List):
     """ Sort by price """
-    return sorted(deals, key=lambda d: d.calculate_price())[1:4]
+    return sorted(deals, key=lambda d: d.calculate_price())[0:3]
