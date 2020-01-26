@@ -71,11 +71,11 @@ def process_data(queries: List[ItemQuery]):
     api_handler = CeneoAPIHandler()
     items = []
     for item_query in queries:
-        item_query_html = api_handler.send_search_request(item_query).text
+        item_query_html = api_handler.send_search_request(item_query)
         search_processor = SearchResultsProcessor(item_query_html, item_query)
 
         item = search_processor.get_first_item_with_multiple_sellers()
-        item_html = api_handler.send_product_request(item).text
+        item_html = api_handler.send_product_request(item)
 
         product_processor = ProductOffersProcessor(item_html, item)
         item.offers = product_processor.get_offers_list(res_len=10)

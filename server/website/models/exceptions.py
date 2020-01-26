@@ -11,3 +11,8 @@ class MinGreaterThanMaxException(Exception):
 class ReputationNotInBoundariesException(Exception):
     """ Raised if reputation provided is > 5 or < 1 """
     pass
+
+
+class CeneoWebDriverTimeoutException(Exception):
+    """ Raised if WebDriver fails to load data in given timeout """
+    pass
