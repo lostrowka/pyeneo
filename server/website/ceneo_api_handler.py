@@ -1,6 +1,5 @@
 import logging
 
-from requests import Response
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -24,7 +23,7 @@ class CeneoAPIHandler:
         #
         # self.driver = webdriver.Chrome(chrome_options=chrome_options)
 
-    def send_search_request(self, item_query: ItemQuery) -> Response:
+    def send_search_request(self, item_query: ItemQuery) -> str:
         """ Serve HTTP GET request regarding desired item """
         url = item_query.create_url()
         self.log.info(self.log_GET.format(URL=url))
@@ -36,7 +35,7 @@ class CeneoAPIHandler:
             raise CeneoWebDriverTimeoutException
         return self.driver.page_source
 
-    def send_product_request(self, item: Item) -> Response:
+    def send_product_request(self, item: Item) -> str:
         """ Serve HTTP GET request regarding specific item to obtain sorted list of prices """
         url = item.create_url()
         self.log.info(self.log_GET.format(URL=url))
