@@ -13,11 +13,6 @@ class ReputationNotInBoundariesException(Exception):
     pass
 
 
-class InvalidDataTypeException(Exception):
-    """ Raised if data is invalid """
-    pass
-
-
-class NoResultsException(Exception):
-    """ Raised if there is no results"""
+class CeneoWebDriverTimeoutException(Exception):
+    """ Raised if WebDriver fails to load data in given timeout """
     pass

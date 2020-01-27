@@ -77,8 +77,12 @@ def request_page(request: WSGIRequest):
                               context={'form_list': form_list, 'messages': messages})
 
         if len(queries) > 0:
-            deals = sort_by_price(process_data(queries))
-
+            try:
+                deals = process_data(queries)
+            except Exception as e:
+                return render(request=request,
+                              template_name='website/error.html',
+                              context={'exception': str(e)})
             return render(request=request,
                           template_name='website/output.html',
                           context={'deals': deals})
@@ -93,11 +97,11 @@ def process_data(queries: List[ItemQuery]):
     api_handler = CeneoAPIHandler()
     items = []
     for item_query in queries:
-        item_query_html = api_handler.send_search_request(item_query).text
+        item_query_html = api_handler.send_search_request(item_query)
         search_processor = SearchResultsProcessor(item_query_html, item_query)
 
         item = search_processor.get_first_item_with_multiple_sellers()
-        item_html = api_handler.send_product_request(item).text
+        item_html = api_handler.send_product_request(item)
 
         product_processor = ProductOffersProcessor(item_html, item)
         item.offers = product_processor.get_offers_list(res_len=10)
@@ -105,8 +109,3 @@ def process_data(queries: List[ItemQuery]):
 
     multiple_items_processor = MultipleItemsProcessor(items)
     return multiple_items_processor.get_deals()
-
-
-def sort_by_price(deals: List):
-    """ Sort by price """
-    return sorted(deals, key=lambda d: d.calculate_price())[0:3]

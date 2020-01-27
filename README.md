@@ -8,7 +8,8 @@ class at AGH University of Science and Technology by:
 * Maciej Jankowski.
 
 ## Running the application
-   1. With CLI 
+   1. Application requires chromedriver and Chrome installed (`chromedriver` added to `$PATH`). Instructions on how to do this are [here](https://chromedriver.chromium.org/getting-started).
+   2. With CLI 
          
          ```sudo su <br/>
          apt-get update && apt-get upgrade -y  
@@ -21,14 +22,14 @@ class at AGH University of Science and Technology by:
          python3.7 -m venv my_env
          source my_env/bin/activate
          cd pyeneo
-         python -m pip -r requirements.txt
+         python -m pip install -r requirements.txt
          export PYTHONPATH=$(pwd)
          python server/website manage.py runserver
          ```
          
          (included in bash file start.sh)
          
-   2. With IntelliJ IDEA
+   3. With IntelliJ IDEA
       
       ![IDEA config](https://github.com/lostrowka/pyeneo/blob/master/images/idea_config.png)
       

@@ -26,6 +26,9 @@ class ItemQuery:
         self.timestamp = str(datetime.now())
         self.log = logging.getLogger(ItemQuery.__name__)
 
+    def __str__(self):
+        return f'{self.name}, {self.quantity}, {self.min_price}-{self.max_price}, {self.min_reputation}'
+
     def create_url(self) -> str:
         """ Create URL for query with object params """
         self.log.info(f"generating ItemQuery URL for {self.name}")
