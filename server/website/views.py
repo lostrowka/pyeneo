@@ -56,7 +56,12 @@ def request_page(request: WSGIRequest):
                               context={'form_list': form_list, 'messages': messages})
 
         if len(queries) > 0:
-            deals = process_data(queries)
+            try:
+                deals = process_data(queries)
+            except Exception as e:
+                return render(request=request,
+                              template_name='website/error.html',
+                              context={'exception': str(e)})
             return render(request=request,
                           template_name='website/output.html',
                           context={'deals': deals})

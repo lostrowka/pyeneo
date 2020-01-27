@@ -31,8 +31,8 @@ class CeneoAPIHandler:
             self.driver.get(url)
             # Wait until table with results load (wait for JS execution)
             WebDriverWait(self.driver, 10).until(lambda x: x.find_elements_by_class_name("js_search-results"))
-        except TimeoutError:
-            raise CeneoWebDriverTimeoutException
+        except Exception:
+            raise CeneoWebDriverTimeoutException("Przekroczono czas oczekiwania na wyniki wyszukiwania. Spróbuj później.")
         return self.driver.page_source
 
     def send_product_request(self, item: Item) -> str:
@@ -43,6 +43,6 @@ class CeneoAPIHandler:
             self.driver.get(url)
             # Wait until table with product offers load (wait for JS execution)
             WebDriverWait(self.driver, 10).until(lambda x: x.find_elements_by_class_name("product-offers"))
-        except TimeoutError:
-            raise CeneoWebDriverTimeoutException
+        except Exception:
+            raise CeneoWebDriverTimeoutException("Przekroczono czas oczekiwania na wyniki wyszukiwania. Spróbuj później.")
         return self.driver.page_source
