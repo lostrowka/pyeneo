@@ -16,3 +16,8 @@ class ReputationNotInBoundariesException(Exception):
 class CeneoWebDriverTimeoutException(Exception):
     """ Raised if WebDriver fails to load data in given timeout """
     pass
+
+
+class InvalidDataTypeException(Exception):
+    """ Raised if data type is wrong """
+    pass

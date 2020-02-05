@@ -1,4 +1,3 @@
-import re
 from typing import List
 
 from django.core.handlers.wsgi import WSGIRequest
@@ -13,6 +12,7 @@ from .forms import ItemForm
 from .processors.multiple_items_processor import MultipleItemsProcessor
 from .processors.product_offers_processor import ProductOffersProcessor
 from .processors.search_results_processor import SearchResultsProcessor
+import re
 
 
 def request_page(request: WSGIRequest):
@@ -79,6 +79,7 @@ def request_page(request: WSGIRequest):
         if len(queries) > 0:
             try:
                 deals = process_data(queries)
+                deals = sorted(deals, key=lambda d: d.calculate_price())[1:4]
             except Exception as e:
                 return render(request=request,
                               template_name='website/error.html',

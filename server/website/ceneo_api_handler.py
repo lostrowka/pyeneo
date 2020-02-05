@@ -6,6 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from server.website.models.exceptions import CeneoWebDriverTimeoutException
 from server.website.models.item import Item
 from server.website.models.item_query import ItemQuery
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 class CeneoAPIHandler:
@@ -15,13 +16,12 @@ class CeneoAPIHandler:
         self.log_GET = "sending GET to {URL}"
         self.log = logging.getLogger(CeneoAPIHandler.__name__)
 
-        self.driver = webdriver.Chrome()
-
         # Optional headless parameter, not tested properly
-        # chrome_options = Options()
+        # chrome_options = webdriver.ChromeOptions()
         # chrome_options.add_argument("--headless")
-        #
-        # self.driver = webdriver.Chrome(chrome_options=chrome_options)
+
+        # self.driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
 
     def send_search_request(self, item_query: ItemQuery) -> str:
         """ Serve HTTP GET request regarding desired item """
@@ -32,7 +32,8 @@ class CeneoAPIHandler:
             # Wait until table with results load (wait for JS execution)
             WebDriverWait(self.driver, 10).until(lambda x: x.find_elements_by_class_name("js_search-results"))
         except Exception:
-            raise CeneoWebDriverTimeoutException("Przekroczono czas oczekiwania na wyniki wyszukiwania. Spróbuj później.")
+            raise CeneoWebDriverTimeoutException(
+                "Przekroczono czas oczekiwania na wyniki wyszukiwania. Spróbuj później.")
         return self.driver.page_source
 
     def send_product_request(self, item: Item) -> str:
@@ -44,5 +45,6 @@ class CeneoAPIHandler:
             # Wait until table with product offers load (wait for JS execution)
             WebDriverWait(self.driver, 10).until(lambda x: x.find_elements_by_class_name("product-offers"))
         except Exception:
-            raise CeneoWebDriverTimeoutException("Przekroczono czas oczekiwania na wyniki wyszukiwania. Spróbuj później.")
+            raise CeneoWebDriverTimeoutException(
+                "Przekroczono czas oczekiwania na wyniki wyszukiwania. Spróbuj później.")
         return self.driver.page_source

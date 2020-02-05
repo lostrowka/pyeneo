@@ -22,7 +22,8 @@ class MultipleItemsProcessor:
         deals = [Deal.assemble_a_deal(seller) for seller in sellers]
         self.log.info(f"assembled {len(deals)} deals for items {self.item_names}")
 
-        return list(set(sorted(deals, key=lambda d: d.calculate_price())))[0:3]
+        return list(set(sorted(deals, key=lambda d: d.calculate_price())))[0:4]
+
 
     def get_unique_seller_names(self) -> Set[str]:
         return set(offer.name for offer in sum(map(lambda item: item.offers, self.items), []))
